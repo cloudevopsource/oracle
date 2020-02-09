@@ -201,7 +201,27 @@ SQL> select con_id, pdb_id, pdb_name, dbid, status from cdb_pdbs;
 
 这里需要注意的是Oracle 12.2之后支持LOCAL UNDO，这里注意需要手动要勾选LOCAL UNDO选项。
 
-+ CREATE DATABASE语句创建CDB
++ CREATE DATABASE语句创建CDB (补充。。。)
 
 在使用脚本创建CDB时Oracle提供了两种方法，一种是使用OMF，另外一种是非OMF的方式，注意参数文件中需要将ENABLE_PLUGGABLE_DATABASE设置为TRUE。
 
+如果是新创建的CDB中只会包含有两个容器：根容器CDB$ROOT和种子容器PDB$SEED
+```bash
+#CDB:
+SQL> SELECT con_id, dbid, con_uid, guid, name FROM v$containers;
+
+    CON_ID       DBID    CON_UID GUID                             NAME
+---------- ---------- ---------- -------------------------------- --------------------------------------------------------------------------------
+         1 2817260453          1 9D15E34210D75E05E05306E0A8C0C761 CDB$ROOT
+         2 1713339984 1713339984 9D15E34210D85E05E05306E0A8C0C761 PDB$SEED
+         3 1881559932 1881559932 9D164E5302EE764EE05306E0A8C0BB61 MP4CLOUD
+```
+#pdb:
+```bash
+SQL> SELECT con_id, dbid, con_uid, guid, name FROM v$containers;
+
+    CON_ID       DBID    CON_UID GUID                             NAME
+---------- ---------- ---------- -------------------------------- --------------------------------------------------------------------------------
+         3 1881559932 1881559932 9D164E5302EE764EE05306E0A8C0BB61 MP4CLOUD
+
+```
