@@ -69,9 +69,44 @@ SQL> select * from v$tablespace;
 
 ```
 
++ UNDO 表空间
+
+在12.2之前的版本中，所有的PDB共用CDB$ROOT中的UNDO文件，在12.2之后的版本中UNDO的使用模式有两种：SHARED UNDO MODE和LOCAL UNDO MODE；LOCAL UNDO MODE就是每个PDB使用自己的UNDO表空间，如果当PDB中没有自己的UNDO表空间时，会使用CDB$ROOT中的公共UNDO表空间。
+```bash
+
+SQL> select * from v$tablespace;
+
+       TS# NAME                           INCLUDED_IN_DATABASE_BACKUP BIGFILE FLASHBACK_ON ENCRYPT_IN_BACKUP     CON_ID
+---------- ------------------------------ --------------------------- ------- ------------ ----------------- ----------
+         0 SYSTEM                         YES                         NO      YES                                     1
+         0 SYSTEM                         YES                         NO      YES                                     2
+         1 SYSAUX                         YES                         NO      YES                                     1
+         1 SYSAUX                         YES                         NO      YES                                     2
+         2 UNDOTBS1                       YES                         NO      YES                                     1
+         2 UNDOTBS1                       YES                         NO      YES                                     2
+         3 TEMP                           NO                          NO      YES                                     1
+         3 TEMP                           NO                          NO      YES                                     2
+         4 USERS                          YES                         NO      YES                                     1
+         0 SYSTEM                         YES                         NO      YES                                     3
+         1 SYSAUX                         YES                         NO      YES                                     3
+         2 UNDOTBS1                       YES                         NO      YES                                     3
+         3 TEMP                           NO                          NO      YES                                     3
+         4 USERS                          YES                         NO      YES                                     3
+
+14 rows selected
+
+```
+在创建CDB时使用了SHARED UNDO MODE方式，如果后续想更改为LOCAL UNDO MODE，我们可以使用如下命令更改UNDO MODE为LOCAL UNDO MODE:
+```bash
+startup upgrade
+alter database local undo on;
+shutdown immediate
+startup
+```
+
 + REDO文件
 
-在CDB环境中所有的PDB共用CDB$ROOT中的REDO文件，REDO中的条目标识REDO来自那个PDB。
+在CDB环境中所有的PDB共用CDB$ROOT中的REDO文件，REDO中的条目标识REDO来自那个PDB。在PDB中无法执行ALTERSYSTEM SWITCH LOGFILE命令，只有公用用户在ROOT容器中才可以执行该命令。
 
 ```bash
 
@@ -97,3 +132,7 @@ SQL> select * from V$logfile;
 6 rows selected
 
 ```
++ archivelog
+
+在CDB环境中所有的PDB共用CDB的归档模式，以及归档文件，不可以单独为PDB设置自己的归档模式，只有特权用户连接根容器之后才可以启动归档模式。
+
