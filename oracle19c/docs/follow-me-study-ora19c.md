@@ -212,6 +212,15 @@ SQL> select con_id, pdb_id, pdb_name, dbid, status from cdb_pdbs;
 参数文件中需要将ENABLE_PLUGGABLE_DATABASE设置为TRUE。
 参数文件中需要将FILE_NAME_CONVERT 子句指定了使用创建PDBSEED文件名
 
+查看CDB数据库是否创建成功
+```bash
+#CDB：
+SQL> SELECT dbid, name, open_mode, cdb, con_id FROM v$database;
+
+      DBID NAME      OPEN_MODE            CDB     CON_ID
+---------- --------- -------------------- --- ----------
+2817260453 TSCDB1    READ WRITE           YES          0
+```
 如果是新创建的CDB中只会包含有两个容器：根容器CDB$ROOT和种子容器PDB$SEED
 ```bash
 #CDB:
