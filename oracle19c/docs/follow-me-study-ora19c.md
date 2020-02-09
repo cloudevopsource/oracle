@@ -204,6 +204,7 @@ SQL> select con_id, pdb_id, pdb_name, dbid, status from cdb_pdbs;
 
 这里需要注意的是Oracle 12.2之后支持LOCAL UNDO，这里注意需要手动要勾选LOCAL UNDO选项。
 
++ NO-CDB转换为CDB
 + CREATE DATABASE语句创建CDB (补充。。。)
 
 创建代码中”ENABLE PLUGGABLE DATABASE”之后部分与PDB有关，其他部分与创建传统的Oracle数据库语句均相同。
