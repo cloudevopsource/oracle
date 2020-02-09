@@ -339,7 +339,7 @@ order by con_id;
 
 使用公用用户连接CDB后可以使用alter session的方式切换不同的容器,在切换容器时无需运行监听器和密码文件。只要公用用户拥有相关权限就可以切换到另外的容器中
 ```bash
-alter session set container=pdb1;
+alter session set container=mp4cloud;
 alter session set container = cdb$root;
 ```
 
