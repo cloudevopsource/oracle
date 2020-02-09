@@ -150,4 +150,23 @@ SQL>SELECT name FROM v$system_parameter WHERE ispdb_modifiable = 'TRUE' ORDER BY
 
 ```
 
++ 控制文件
+
+CDB环境中只有一组控制文件，所有的PDB共用这组公共的控制文件，从任何PDB中添加数据文件都会记录到公共控制文件当中，公用用户连接根容器时，可对控制文件进行管理。
+```bash
+#CDB:
+SQL> show parameter control_files;
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+control_files                        string      +DATADG/TSCDB1/CONTROLFILE/current.257.1030785513, /orabak/fast_recovery_area/TSCDB1/controlfile/o1_mf_h2wgm8mf_.ctl
+```
+
+```bash
+#PDB:
+SQL> show parameter control_files;
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+control_files                        string      +DATADG/TSCDB1/CONTROLFILE/current.257.1030785513, /orabak/fast_recovery_area/TSCDB1/controlfile/o1_mf_h2wgm8mf_.ctl
+
+```
 
