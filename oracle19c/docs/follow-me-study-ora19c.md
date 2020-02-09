@@ -146,9 +146,7 @@ SQL> select * from V$logfile;
 ```bash
 SQL> select * from pdb_spfile$;
 
-SELECT name FROM v$system_parameter
-WHERE ispdb_modifiable = 'TRUE'
-ORDER BY name;
+SQL>SELECT name FROM v$system_parameter WHERE ispdb_modifiable = 'TRUE' ORDER BY name;
 
 ```
 
