@@ -170,3 +170,16 @@ control_files                        string      +DATADG/TSCDB1/CONTROLFILE/curr
 
 ```
 
++ 告警日志以及跟踪文件
+
+在CDB中所有的PDB共用一个告警日志和一组跟踪文件，所有的PDB告警信息都会写入同一个告警日志中。
+
++ 字符集
+
+在CDB中定义字符集也可以应用于它所含有的PDB中，每个PDB也可以有自己的字符集设置
+```bash
+SELECT a.value || '_' || b.value || '.'|| c.value NLS_LANG
+FROM nls_database_parameters a,nls_database_parameters b, nls_database_parameters c
+WHERE a.parameter = 'NLS_LANGUAGE' ANDb.parameter = 'NLS_TERRITORY' AND c.parameter = 'NLS_CHARACTERSET';
+
+```
