@@ -1,28 +1,8 @@
 
-## 设置所有节点的主机名
+## 可插入数据库的概念
 
-+ hostnamectl修改主机名 （所有root用戶節點執行）
+Oracle Multitenant Container Database(CDB)，即多租户容器数据库，是Oracle 12C引入的特性，指的是可以容纳一个或者多个可插拔数据库的数据库，这个特性允许在CDB容器数据库中创建并且维护多个数据库，在CDB中创建的数据库被称为PDB，每个PDB在CDB中是相互独立存在的，在单独使用PDB时，与普通数据库无任何区别。
 
-``` bash
-hostnamectl set-hostname k8scloud[1-5].frcloud.io
-```
-
-
-+ 编辑hosts文件 （所有root用戶節點執行）
-
-``` bash
-cat <<EOF > /etc/hosts
-127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
-::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
-192.168.224.1   k8scloud1.frcloud.io k8scloud1
-192.168.224.2   k8scloud2.frcloud.io k8scloud2
-192.168.224.3   k8scloud3.frcloud.io k8scloud3
-192.168.224.4   k8scloud4.frcloud.io k8scloud4
-192.168.224.5   k8scloud5.frcloud.io k8scloud5
-127.0.0.1       k8scloudapi.frcloud.io k8scloudapi
-EOF
-
-```
 
 ## 内核升级
 
