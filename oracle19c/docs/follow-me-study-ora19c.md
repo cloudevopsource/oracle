@@ -343,4 +343,9 @@ order by con_id;
 alter session set container=mp4cloud;
 alter session set container = cdb$root;
 ```
+## PDB的创建
+
+PDB数据库的创建可以从现存的数据库中复制数据文件，包括种子容器、可插拔数据库、non-CDB数据库，创建时可以使用CREATE PLUGGABLE、RMAN、DBCA以及EM等。
+
+在12.1版本中在创建PDB时，Source PDB必须处于read only状态，在12.2版本中，因为undo local mode新特性的推出，在创建PDB时，Source PDB在read write状态，依然可以创建。另外在12.2版本中Oracle推出了refresh PDB特性，具有对Source PDB进行增量同步的功能。
 
