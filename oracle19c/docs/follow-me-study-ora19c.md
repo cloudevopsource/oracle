@@ -229,7 +229,17 @@ SQL> SELECT dbid, name, open_mode, cdb, con_id FROM v$database;
 ---------- --------- -------------------- --- ----------
 2817260453 TSCDB1    READ WRITE           YES          0
 ```
+查看所有数据库的状态
+```bash
+SQL> 
+SQL> show pdbs;
 
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+         2 PDB$SEED                       READ ONLY  NO
+         3 MP4CLOUD                       READ WRITE NO
+SQL> 
+```
 如果是新创建的CDB中只会包含有两个容器：根容器CDB$ROOT和种子容器PDB$SEED
 ```bash
 #CDB:
