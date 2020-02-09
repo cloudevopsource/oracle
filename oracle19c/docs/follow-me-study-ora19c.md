@@ -68,3 +68,32 @@ SQL> select * from v$tablespace;
 14 rows selected
 
 ```
+
++ REDO文件
+
+在CDB环境中所有的PDB共用CDB$ROOT中的REDO文件，REDO中的条目标识REDO来自那个PDB。
+
+```bash
+
+SQL> select * from V$log;
+
+    GROUP#    THREAD#  SEQUENCE#      BYTES  BLOCKSIZE    MEMBERS ARCHIVED STATUS           FIRST_CHANGE# FIRST_TIME  NEXT_CHANGE# NEXT_TIME       CON_ID
+---------- ---------- ---------- ---------- ---------- ---------- -------- ---------------- ------------- ----------- ------------ ----------- ----------
+         1          1         52  209715200        512          2 NO       INACTIVE               2278626 2020/2/8 22      2322024 2020/2/9 6:          0
+         2          1         53  209715200        512          2 NO       INACTIVE               2322024 2020/2/9 6:      2349302 2020/2/9 10          0
+         3          1         54  209715200        512          2 NO       CURRENT                2349302 2020/2/9 10 1.8446744073                      0
+
+SQL> select * from V$logfile;
+
+    GROUP# STATUS  TYPE    MEMBER                                                                           IS_RECOVERY_DEST_FILE     CON_ID
+---------- ------- ------- -------------------------------------------------------------------------------- --------------------- ----------
+         1         ONLINE  +DATADG/TSCDB1/ONLINELOG/group_1.258.1030785513                                  NO                             0
+         1         ONLINE  /orabak/fast_recovery_area/TSCDB1/onlinelog/o1_mf_1_h2wgm9vx_.log                YES                            0
+         2         ONLINE  +DATADG/TSCDB1/ONLINELOG/group_2.259.1030785513                                  NO                             0
+         2         ONLINE  /orabak/fast_recovery_area/TSCDB1/onlinelog/o1_mf_2_h2wgmbz5_.log                YES                            0
+         3         ONLINE  +DATADG/TSCDB1/ONLINELOG/group_3.260.1030785515                                  NO                             0
+         3         ONLINE  /orabak/fast_recovery_area/TSCDB1/onlinelog/o1_mf_3_h2wgmdst_.log                YES                            0
+
+6 rows selected
+
+```
