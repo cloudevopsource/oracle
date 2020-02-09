@@ -194,3 +194,14 @@ SQL> select con_id, pdb_id, pdb_name, dbid, status from cdb_pdbs;
          2          2 PDB$SEED                                                                         1713339984 NORMAL
          3          3 MP4CLOUD                                                                         1881559932 NORMAL
 ```
+
+## 多租户数据库的创建
+
++ 使用DBCA图形工具创建CDB
+
+这里需要注意的是Oracle 12.2之后支持LOCAL UNDO，这里注意需要手动要勾选LOCAL UNDO选项。
+
++ CREATE DATABASE语句创建CDB
+
+在使用脚本创建CDB时Oracle提供了两种方法，一种是使用OMF，另外一种是非OMF的方式，注意参数文件中需要将ENABLE_PLUGGABLE_DATABASE设置为TRUE。
+
