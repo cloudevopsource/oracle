@@ -221,6 +221,15 @@ SQL> SELECT dbid, name, open_mode, cdb, con_id FROM v$database;
 ---------- --------- -------------------- --- ----------
 2817260453 TSCDB1    READ WRITE           YES          0
 ```
+```bash
+#PDB：
+SQL> SELECT dbid, name, open_mode, cdb, con_id FROM v$database;
+
+      DBID NAME      OPEN_MODE            CDB     CON_ID
+---------- --------- -------------------- --- ----------
+2817260453 TSCDB1    READ WRITE           YES          0
+```
+
 如果是新创建的CDB中只会包含有两个容器：根容器CDB$ROOT和种子容器PDB$SEED
 ```bash
 #CDB:
