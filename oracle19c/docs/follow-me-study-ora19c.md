@@ -23,3 +23,5 @@ SQL> show pdbs;
          3 MP4CLOUD                       READ WRITE NO
 SQL> 
 ```
+
+PDB$SEED为CDB seed，为PDB
