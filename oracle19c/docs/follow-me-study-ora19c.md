@@ -351,11 +351,18 @@ PDB数据库的创建可以从现存的数据库中复制数据文件，包括�
 
 ## 使用CREATE PLUGGABLE命令可以使用以下资源创建PDB
 CDB seed (PDB$SEED)
+
 克隆已经存在的PDB(Local PDB\Remote PDB)
+
 non-CDB数据库
+
 拔下的PDB
+
 
 ## 使用DBCA可以使用以下资源创建PDB
 CDB seed (PDB$SEED)
+
 RMAN备份
+
 拔下的PDB
+
