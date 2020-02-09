@@ -29,13 +29,13 @@ PDB$SEED为CDB seed，为PDB
 
 ## CDB环境中的用户
 
-+公用用户
++ 公用用户
 
 公用用户是在root数据库中和所有的PDB数据库中都存在的用户，公用用户必须在根容器中创建，然后此用户会在所有的现存的PDB中自动创建（可见），公用用户标识必须以c##或者C##开头，sys和system用户是Oracle在CDB环境中自动创建的公用用户，所以在PDB中也可见。
 ```bash
 
 grant dba to c##yyh container=all;
 ```
-+本地用户
++ 本地用户
 
 本地用户指的是在PDB中创建的普通用户，只有在创建它的PDB中才会存在该用户，并且PDB中只能创建本地用户。
