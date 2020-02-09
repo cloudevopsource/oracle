@@ -366,6 +366,15 @@ FILE_NAME_CONVERT = ('/u01/app/oracle/oradata/ora12c/pdbseed',
 PATH_PREFIX	用来限制directory objects/Oracle XML/Create pfile/Oracle wallets所在的目录
 FILE_NAME_CONVERT	设置子容器和数据文件副本的位置
 
+语句执行完毕之后查看创建完成的PDB：
+```bash
+sql>show pdbs
+CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+     2 PDB$SEED                       READ ONLY  NO
+     3 MP4CLOUD                       MOUNTED
+
+```
 + 克隆已经存在的PDB(Local PDB\Remote PDB)
 
 + non-CDB数据库
