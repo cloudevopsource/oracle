@@ -71,7 +71,7 @@ SQL> select * from v$tablespace;
 
 + UNDO 表空间
 
-在12.2之前的版本中，所有的PDB共用CDB$ROOT中的UNDO文件，在12.2之后的版本中UNDO的使用模式有两种：SHARED UNDO MODE和LOCAL UNDO MODE；LOCAL UNDO MODE就是每个PDB使用自己的UNDO表空间，如果当PDB中没有自己的UNDO表空间时，会使用CDB$ROOT中的公共UNDO表空间。
+在12.2之前的版本中，所有的PDB共用CDB$ROOT中的UNDO文件，在12.2之后的版本中UNDO的使用模式有两种：SHARED UNDO MODE和LOCAL UNDO MODE；LOCAL UNDO MODE就是每个PDB使用自己的UNDO表空间，如果当PDB中没有自己的UNDO表空间时，会使用CDB$ROOT中的公共UNDO表空间;并且更改为local undo后CDB中的所有的PDB会自动创建自己的UNDO表空间。
 ```bash
 
 SQL> select * from v$tablespace;
@@ -135,4 +135,21 @@ SQL> select * from V$logfile;
 + archivelog
 
 在CDB环境中所有的PDB共用CDB的归档模式，以及归档文件，不可以单独为PDB设置自己的归档模式，只有特权用户连接根容器之后才可以启动归档模式。
+
++ 临时表空间
+每个PDB都有自己的临时表空间，如果PDB没有自己的临时表空间文件，那么，PDB可以使用CDB$ROOT中的临时表空间。
+
++ 参数文件
+
+参数文件中只记录了根容器的参数信息，没有记录PDB级别的参数信息，在根容器中修改初始化参数，会被继承到所有的PDB中，在PDB中修改参数后，PDB的参数会覆盖CDB级别的参数，PDB级别的参数记录在根容器的pdb_spfile$视图中，但并不是所有的参数都可以在PDB中修改，可以通过v$system_parameter视图查看PDB中可修改的参数：
+
+```bash
+SQL> select * from pdb_spfile$;
+
+SELECT name FROM v$system_parameter
+WHERE ispdb_modifiable = 'TRUE'
+ORDER BY name;
+
+```
+
 
