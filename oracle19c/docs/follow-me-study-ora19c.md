@@ -206,7 +206,11 @@ SQL> select con_id, pdb_id, pdb_name, dbid, status from cdb_pdbs;
 
 + CREATE DATABASE语句创建CDB (补充。。。)
 
-在使用脚本创建CDB时Oracle提供了两种方法，一种是使用OMF，另外一种是非OMF的方式，注意参数文件中需要将ENABLE_PLUGGABLE_DATABASE设置为TRUE。
+创建代码中”ENABLE PLUGGABLE DATABASE”之后部分与PDB有关，其他部分与创建传统的Oracle数据库语句均相同。
+在使用脚本创建CDB时Oracle提供了两种方法，一种是使用OMF，另外一种是非OMF的方式。
+
+参数文件中需要将ENABLE_PLUGGABLE_DATABASE设置为TRUE。
+参数文件中需要将FILE_NAME_CONVERT 子句指定了使用创建PDBSEED文件名
 
 如果是新创建的CDB中只会包含有两个容器：根容器CDB$ROOT和种子容器PDB$SEED
 ```bash
