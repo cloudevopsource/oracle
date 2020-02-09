@@ -260,3 +260,64 @@ SQL> SELECT con_id, dbid, con_uid, guid, name FROM v$containers;
          3 1881559932 1881559932 9D164E5302EE764EE05306E0A8C0BB61 MP4CLOUD
 
 ```
+## 多租户数据库的管理
+管理CDB时，通常需要使用sys用户连接根容器数据库，在操作方式上与非CDB数据库同样。
+
++ 当前连接容器的信息
+```bash
+
+SQL> show con_id con_name user;
+
+CON_ID
+------------------------------
+1
+
+CON_NAME
+------------------------------
+CDB$ROOT
+USER is "SYS"
+SQL> 
+```
++ 启动和停止CDB
+```bash
+SQL>startup--默认情况下启动CDB时不会自动启动PDBs，后续我们可以使用手工的方式启动PDB：
+
+SQL>ALTER PLUGGABLE DATABASE [pdb_name] OPEN;
+or
+SQL>ALTER PLUGGABLE DATABASE ALL OPEN;
+SQL>shutdown immediate
+
+```
+
++ 查看CDB数据库表空间使用情况
+```bash
+with generator0 as
+(select cf.con_id,cf.tablespace_name, sum(cf.bytes) / 1024 / 1024 frm
+from cdb_free_space cf
+group by cf.con_id,cf.tablespace_name),
+generator1 as
+(select cd.con_id,cd.tablespace_name, sum(cd.bytes) / 1024 / 1024 usm
+from cdb_data_files cd
+group by cd.con_id,cd.tablespace_name),
+generator2 as(
+select g0.con_id, c.name con_name, g0.tablespace_name, g0.frm, g1.usm
+from generator0 g0, generator1 g1,v$containers c
+where g0.con_id = g1.con_id
+and g0.tablespace_name =g1.tablespace_name
+and c.con_id = g1.con_id
+union
+select c.con_id,
+   c.name,
+   ct.tablespace_name,
+   null,
+   sum(ct.bytes) / 1024 / 1024
+from v$containers c,cdb_temp_files ct
+where c.con_id = ct.con_id
+group by c.con_id, c.name,ct.tablespace_name)
+select con_id,
+case when con_name = LAG(con_name, 1) OVER(PARTITION BY con_name ORDER BY tablespace_name) THEN null ELSE con_name END
+con_name, tablespace_name, frm freemb, usm usemb
+from generator2
+order by con_id;
+
+```
