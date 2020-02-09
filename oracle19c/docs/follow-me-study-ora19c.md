@@ -183,3 +183,14 @@ FROM nls_database_parameters a,nls_database_parameters b, nls_database_parameter
 WHERE a.parameter = 'NLS_LANGUAGE' ANDb.parameter = 'NLS_TERRITORY' AND c.parameter = 'NLS_CHARACTERSET';
 
 ```
++ 数据字典视图与动态性能视图
+
+在CDB环境中引入了CDB_级别的数据字典视图，它的级别高于DBA_/ALL_/USER_，CDB级别的数据字典视图含有所有PDB的元数据信息，其中增加了con_id列，con_id为CDB中所有容器唯一标识符，其中con_id为0的是CDB$ROOT，con_id为2的是PDB$SEED，每个PDB在CDB中都会分配一个唯一的con_id。如果要想查看CDB级别的数据字典视图，必须使用公用用户在跟容器中查看，并且要查看的PDB必须处于open状态，才可以看到PDB中的信息。
+```bash
+SQL> select con_id, pdb_id, pdb_name, dbid, status from cdb_pdbs;
+
+    CON_ID     PDB_ID PDB_NAME                                                                               DBID STATUS
+---------- ---------- -------------------------------------------------------------------------------- ---------- ----------
+         2          2 PDB$SEED                                                                         1713339984 NORMAL
+         3          3 MP4CLOUD                                                                         1881559932 NORMAL
+```
