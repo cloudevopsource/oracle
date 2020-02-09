@@ -350,19 +350,33 @@ PDB数据库的创建可以从现存的数据库中复制数据文件，包括�
 在12.1版本中在创建PDB时，Source PDB必须处于read only状态，在12.2版本中，因为undo local mode新特性的推出，在创建PDB时，Source PDB在read write状态，依然可以创建。另外在12.2版本中Oracle推出了refresh PDB特性，具有对Source PDB进行增量同步的功能。
 
 ## 使用CREATE PLUGGABLE命令可以使用以下资源创建PDB
-CDB seed (PDB$SEED)
++ CDB seed (PDB$SEED)
+```bash
+CREATE PLUGGABLE DATABASE mp4cloud ADMIN USER mp4cloud IDENTIFIED BY  <password>
+STORAGE (MAXSIZE 2G)
+DEFAULT TABLESPACE ypdb1
+DATAFILE '/u01/app/oracle/oradata/tscdb1/mp4cloud/mp4cloud.dbf' SIZE 100M AUTOEXTEND ON
+PATH_PREFIX = '/u01/app/oracle/oradata/tscdb1/mp4cloud/'
+FILE_NAME_CONVERT = ('/u01/app/oracle/oradata/ora12c/pdbseed', 
+'/u01/app/oracle/oradata/tscdb1/mp4cloud');
 
-克隆已经存在的PDB(Local PDB\Remote PDB)
 
-non-CDB数据库
+```
 
-拔下的PDB
+PATH_PREFIX	用来限制directory objects/Oracle XML/Create pfile/Oracle wallets所在的目录
+FILE_NAME_CONVERT	设置子容器和数据文件副本的位置
+
++ 克隆已经存在的PDB(Local PDB\Remote PDB)
+
++ non-CDB数据库
+
++ 拔下的PDB
 
 
 ## 使用DBCA可以使用以下资源创建PDB
-CDB seed (PDB$SEED)
++ CDB seed (PDB$SEED)
 
-RMAN备份
++ RMAN备份
 
 拔下的PDB
 
