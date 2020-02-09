@@ -320,4 +320,18 @@ con_name, tablespace_name, frm freemb, usm usemb
 from generator2
 order by con_id;
 
+    CON_ID CON_NAME                                                                         TABLESPACE_NAME                    FREEMB      USEMB
+---------- -------------------------------------------------------------------------------- ------------------------------ ---------- ----------
+         1 CDB$ROOT                                                                         SYSAUX                            43.9375        730
+         1                                                                                  SYSTEM                           233.4375        700
+         1                                                                                  USERS                                   4          5
+         1                                                                                  UNDOTBS1                          300.875        320
+         1                                                                                  TEMP                                              20
+         3 MP4CLOUD                                                                         SYSAUX                            18.5625        165
+         3                                                                                  SYSTEM                            19.8125        210
+         3                                                                                  USERS                                   4          5
+         3                                                                                  UNDOTBS1                         217.8125        235
+         3                                                                                  TEMP                                              20
+
+10 rows selected
 ```
