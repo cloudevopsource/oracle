@@ -39,3 +39,32 @@ grant dba to c##yyh container=all;
 + 本地用户
 
 本地用户指的是在PDB中创建的普通用户，只有在创建它的PDB中才会存在该用户，并且PDB中只能创建本地用户。
+
+## CDB中的各对象的基本知识整理
+
++ SYSTEM/SYSAUX表空间
+
+在CDB的数据库环境中，SYSTEM/SYSAUX表空间并不是公用，CDB$ROOT以及每个PDB都拥有自己的SYSTEM和SYSAUX表空间。
+```bash
+SQL> select * from v$tablespace;
+
+       TS# NAME                           INCLUDED_IN_DATABASE_BACKUP BIGFILE FLASHBACK_ON ENCRYPT_IN_BACKUP     CON_ID
+---------- ------------------------------ --------------------------- ------- ------------ ----------------- ----------
+         0 SYSTEM                         YES                         NO      YES                                     1
+         0 SYSTEM                         YES                         NO      YES                                     2
+         1 SYSAUX                         YES                         NO      YES                                     1
+         1 SYSAUX                         YES                         NO      YES                                     2
+         2 UNDOTBS1                       YES                         NO      YES                                     1
+         2 UNDOTBS1                       YES                         NO      YES                                     2
+         3 TEMP                           NO                          NO      YES                                     1
+         3 TEMP                           NO                          NO      YES                                     2
+         4 USERS                          YES                         NO      YES                                     1
+         0 SYSTEM                         YES                         NO      YES                                     3
+         1 SYSAUX                         YES                         NO      YES                                     3
+         2 UNDOTBS1                       YES                         NO      YES                                     3
+         3 TEMP                           NO                          NO      YES                                     3
+         4 USERS                          YES                         NO      YES                                     3
+
+14 rows selected
+
+```
