@@ -449,3 +449,5 @@ SERVICE_ID NAME                                                             NETW
 ## PDB Refresh
 
 PDB Refresh是12C推出的特性，具有对源端PDB进行增量同步的功能，每次刷新会将源端PDB中的任何更改同步到目标PDB(在此环境中目标PDB被称作Refreshable PDB)中，目前增量同步方式有两种：手动方式与自动方式。
+
+Refreshable PDB的应用场景可以用在开发和测试环境的搭建过程中, 因为数据是采用增量同步的方式，这样就减少了对源数据库的影响，也可以作为online备份库。
