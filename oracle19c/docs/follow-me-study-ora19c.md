@@ -408,10 +408,6 @@ SQL> show pdbs;
          2 PDB$SEED                       READ ONLY  NO
          3 MP4CLOUD                       READ WRITE NO
          4 FZPU                           READ WRITE NO
-SQL> 
-
-
-
 
 ```
 
