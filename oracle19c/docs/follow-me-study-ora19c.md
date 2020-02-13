@@ -349,7 +349,7 @@ PDB数据库的创建可以从现存的数据库中复制数据文件，包括�
 
 在12.1版本中在创建PDB时，Source PDB必须处于read only状态，在12.2版本中，因为undo local mode新特性的推出，在创建PDB时，Source PDB在read write状态，依然可以创建。另外在12.2版本中Oracle推出了refresh PDB特性，具有对Source PDB进行增量同步的功能。
 
-## 使用CREATE PLUGGABLE命令可以使用以下资源创建PDB
+
 + CDB seed (PDB$SEED)
 ```bash
 
