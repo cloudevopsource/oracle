@@ -383,7 +383,7 @@ SQL> show pdbs;
 SQL> 
 
 ```
-+ 克隆已经存在的PDB(Local PDB\Remote PDB)
++ 克隆本地已经存在的PDB
 ```bash
 SQL> create pluggable database fzpu from mp4cloud;
 
@@ -435,7 +435,9 @@ SERVICE_ID NAME                                                             NETW
  ```
  
  源PDB中的service_name(mp4cloud)已经被更改指定的service_name(fzpu)
- 
+
+
++ Creating a PDB by Cloning a Remote PDB
 + non-CDB数据库
 
 + 拔下的PDB
