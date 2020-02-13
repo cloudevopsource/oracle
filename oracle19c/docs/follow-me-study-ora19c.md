@@ -359,7 +359,7 @@ SQL>  create pluggable database mp4cloud admin user mp4cloudadmin identified by 
 
 Pluggable database created.
 
-``
+```
 
 语句执行完毕之后查看创建完成的PDB：
 ```bash
