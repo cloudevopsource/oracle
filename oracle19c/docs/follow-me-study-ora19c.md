@@ -446,8 +446,22 @@ SERVICE_ID NAME                                                             NETW
 
 拔下的PDB
 
-## PDB Refresh
+## PDB Refresh （可刷新克隆pdb）
 
 PDB Refresh是12C推出的特性，具有对源端PDB进行增量同步的功能，每次刷新会将源端PDB中的任何更改同步到目标PDB(在此环境中目标PDB被称作Refreshable PDB)中，目前增量同步方式有两种：手动方式与自动方式。
 
 Refreshable PDB的应用场景可以用在开发和测试环境的搭建过程中, 因为数据是采用增量同步的方式，这样就减少了对源数据库的影响，也可以作为online备份库。
++ PDB REFRESH注意事项
+	如果PDB被Clone的到的CDB的字符集不是AL32UTF8，那么源与目标字符集必须兼容。
+	源端与目标端的字节顺序必须相同。
+	连接的用户在CDB中必须拥有'Create Pluggable Database'的权限。
+	如果需要进行switchover,2边dblink的用户名与密码必须相同。
+	需要在cdb级别创建dblink,pdb通过dblink来刷新以及switchover。
+	源PDB不可以是关闭状态。
+	源端PDB必须为归档模式。
+	源端PDB必须是local undo模式。
+	在Refreshable PDB创建后，如果源端需要创建相应表空间，那么目标端需要配置PDB_FILE_NAME_CONVERT参数或使用OMF目录管理方式(OMF级别高PDB_FILE_NAME_CONVERT)，否正会导致目标端PDB刷新失败。
+	目标端采用OMF目录管理方式后，Create Pluggable Database子句中不能指定file_name_convert做显示目录转换，否正报ORA-01276错误。
+	在使用刷新目标PDB与源PDB同步数据时，是通过dblink从源PDB访问redo，但有些时候，当需要更新刷新副本时，源PDB或源PDB所属的CDB可能无法访问，在这种情况下，设置REMOTE_RECOVERY_FILE_DEST参数，将尝试从此参数指定的目录中读取归档日志文件。
+	刷新与切换命令均需在目标PDB中执行。
+	无论手动或自动刷新，目标库PDB必须处于MOUNT状态，不可以处于以READ ONLY 打开的状态。
