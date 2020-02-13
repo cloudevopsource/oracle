@@ -384,7 +384,36 @@ SQL>
 
 ```
 + 克隆已经存在的PDB(Local PDB\Remote PDB)
+```bash
+SQL> create pluggable database fzpu from mp4cloud;
 
+Pluggable database created.
+
+SQL> show pdbs;
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+         2 PDB$SEED                       READ ONLY  NO
+         3 MP4CLOUD                       READ WRITE NO
+         4 FZPU                           MOUNTED
+
+SQL> alter pluggable database fzpu open; 
+
+Pluggable database altered.
+
+SQL> show pdbs;
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+         2 PDB$SEED                       READ ONLY  NO
+         3 MP4CLOUD                       READ WRITE NO
+         4 FZPU                           READ WRITE NO
+SQL> 
+
+
+
+
+```
 + non-CDB数据库
 
 + 拔下的PDB
