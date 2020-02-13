@@ -352,19 +352,14 @@ PDB数据库的创建可以从现存的数据库中复制数据文件，包括�
 ## 使用CREATE PLUGGABLE命令可以使用以下资源创建PDB
 + CDB seed (PDB$SEED)
 ```bash
-CREATE PLUGGABLE DATABASE mp4cloud ADMIN USER mp4cloud IDENTIFIED BY  <password>
-STORAGE (MAXSIZE 2G)
-DEFAULT TABLESPACE ypdb1
-DATAFILE '/u01/app/oracle/oradata/tscdb1/mp4cloud/mp4cloud.dbf' SIZE 100M AUTOEXTEND ON
-PATH_PREFIX = '/u01/app/oracle/oradata/tscdb1/mp4cloud/'
-FILE_NAME_CONVERT = ('/u01/app/oracle/oradata/ora12c/pdbseed', 
-'/u01/app/oracle/oradata/tscdb1/mp4cloud');
 
+SQL> conn / as sysdba
+Connected.
+SQL>  create pluggable database mp4cloud admin user mp4cloudadmin identified by undead ROLES=(CONNECT);
 
-```
+Pluggable database created.
 
-PATH_PREFIX	用来限制directory objects/Oracle XML/Create pfile/Oracle wallets所在的目录
-FILE_NAME_CONVERT	设置子容器和数据文件副本的位置
+``
 
 语句执行完毕之后查看创建完成的PDB：
 ```bash
