@@ -414,6 +414,28 @@ SQL>
 
 
 ```
+
+ 检查service_name
+ ```bash
+ SQL> SELECT service_id, name, network_name, enabled, pdb, con_id FROM cdb_services;
+
+SERVICE_ID NAME                                                             NETWORK_NAME                                                                     ENABLED PDB                                                                                  CON_ID
+---------- ---------------------------------------------------------------- -------------------------------------------------------------------------------- ------- -------------------------------------------------------------------------------- ----------
+         1 SYS$BACKGROUND                                                                                                                                    NO      CDB$ROOT                                                                                  1
+         2 SYS$USERS                                                                                                                                         NO      CDB$ROOT                                                                                  1
+         3 cdbXDB                                                           cdbXDB                                                                           NO      CDB$ROOT                                                                                  1
+         4 cdb                                                              cdb                                                                              NO      CDB$ROOT                                                                                  1
+         8 MP4CLOUD                                                         MP4CLOUD                                                                         NO      MP4CLOUD                                                                                  3
+        10 FZPU                                                             FZPU                                                                             NO      FZPU                                                                                      4
+
+6 rows selected
+ 
+ 
+ 
+ ```
+ 
+ 源PDB中的service_name(mp4cloud)已经被更改指定的service_name(fzpu)
+ 
 + non-CDB数据库
 
 + 拔下的PDB
