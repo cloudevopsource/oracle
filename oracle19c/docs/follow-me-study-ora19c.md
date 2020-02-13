@@ -363,11 +363,24 @@ Pluggable database created.
 
 语句执行完毕之后查看创建完成的PDB：
 ```bash
-sql>show pdbs
-CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+
+SQL> show pdbs;
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
 ---------- ------------------------------ ---------- ----------
-     2 PDB$SEED                       READ ONLY  NO
-     3 MP4CLOUD                       MOUNTED
+         2 PDB$SEED                       READ ONLY  NO
+         3 MP4CLOUD                       MOUNTED
+SQL> alter pluggable database mp4cloud open;
+
+Pluggable database altered.
+
+SQL> show pdbs;
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+         2 PDB$SEED                       READ ONLY  NO
+         3 MP4CLOUD                       READ WRITE NO
+SQL> 
 
 ```
 + 克隆已经存在的PDB(Local PDB\Remote PDB)
